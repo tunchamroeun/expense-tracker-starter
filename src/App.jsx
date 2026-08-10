@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './App.css'
+import { calculateTotalIncome, calculateTotalExpenses, calculateBalance, filterTransactions } from './utils/transactions'
 
 function App() {
   const [transactions, setTransactions] = useState([
@@ -22,23 +23,14 @@ function App() {
 
   const categories = ["food", "housing", "utilities", "transport", "entertainment", "salary", "other"];
 
-  const totalIncome = transactions
-    .filter(t => t.type === "income")
-    .reduce((sum, t) => sum + t.amount, 0);
+  const totalIncome = calculateTotalIncome(transactions);
+  const totalExpenses = calculateTotalExpenses(transactions);
+  const balance = calculateBalance(totalIncome, totalExpenses);
 
-  const totalExpenses = transactions
-    .filter(t => t.type === "expense")
-    .reduce((sum, t) => sum + t.amount, 0);
-
-  const balance = totalIncome - totalExpenses;
-
-  let filteredTransactions = transactions;
-  if (filterType !== "all") {
-    filteredTransactions = filteredTransactions.filter(t => t.type === filterType);
-  }
-  if (filterCategory !== "all") {
-    filteredTransactions = filteredTransactions.filter(t => t.category === filterCategory);
-  }
+  const filteredTransactions = filterTransactions(transactions, {
+    type: filterType,
+    category: filterCategory,
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
