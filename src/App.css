@@ -1,479 +1,160 @@
-/* ---------- counter + receipt shell ---------- */
-
-.counter {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  padding: 56px 20px;
+.app {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-.receipt {
-  width: 100%;
-  max-width: 680px;
-  background: var(--paper);
-  box-shadow:
-    0 30px 60px -20px rgba(0, 0, 0, 0.6),
-    0 2px 0 rgba(255, 255, 255, 0.03) inset;
-  transform: rotate(-0.25deg);
-}
-
-.receipt__edge {
-  height: 14px;
-  background: var(--paper);
-  -webkit-mask-image: radial-gradient(circle at 10px 7px, transparent 7px, black 7.5px);
-  mask-image: radial-gradient(circle at 10px 7px, transparent 7px, black 7.5px);
-  -webkit-mask-size: 20px 14px;
-  mask-size: 20px 14px;
-  -webkit-mask-repeat: repeat-x;
-  mask-repeat: repeat-x;
-}
-
-.receipt__edge--bottom {
-  transform: rotate(180deg);
-}
-
-.receipt__body {
-  padding: 8px 36px 4px;
-}
-
-/* ---------- header ---------- */
-
-.receipt__header {
-  padding: 20px 0 18px;
-  border-bottom: 1px solid var(--rule);
-}
-
-.receipt__header h1 {
-  font-family: var(--font-mono);
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+h1 {
+  margin-bottom: 4px;
 }
 
 .subtitle {
-  margin-top: 4px;
-  color: var(--ink-soft);
-  font-size: 14px;
+  margin-bottom: 20px;
+  color: #666;
 }
-
-.receipt__meta {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 14px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--ink-faint);
-  letter-spacing: 0.04em;
-}
-
-/* ---------- shared section rhythm ---------- */
-
-.section {
-  padding: 22px 0;
-  border-bottom: 1px solid var(--rule);
-}
-
-.section__label {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin-bottom: 14px;
-}
-
-/* ---------- summary ledger lines ---------- */
 
 .summary {
-  padding: 22px 0 18px;
-  border-bottom: 1px solid var(--rule);
-}
-
-.summary-line {
   display: flex;
-  align-items: flex-end;
-  gap: 8px;
-  font-family: var(--font-mono);
-  font-size: 14px;
-  padding: 5px 0;
+  gap: 12px;
+  margin-bottom: 24px;
 }
 
-.summary-line__label {
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  white-space: nowrap;
-}
-
-.summary-line__fill {
+.summary-card {
   flex: 1;
-  height: 0;
-  margin-bottom: 5px;
-  border-bottom: 2px dotted var(--rule-strong);
+  border: 1px solid #ddd;
+  padding: 14px;
+  background: #fff;
 }
 
-.summary-line__value {
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-}
-
-.summary-line--total {
-  margin-top: 10px;
-  padding-top: 12px;
-  border-top: 3px double var(--ink);
-}
-
-.summary-line--total .summary-line__label {
-  color: var(--ink);
-  font-weight: 700;
-}
-
-.summary-line--total .summary-line__value {
-  font-size: 17px;
+.summary-card h3 {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 4px;
 }
 
 .income-amount {
-  color: var(--income);
+  color: green;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .expense-amount {
-  color: var(--expense);
+  color: red;
+  font-size: 20px;
+  font-weight: bold;
 }
 
-/* ---------- category chart ---------- */
+.balance-amount {
+  font-size: 20px;
+  font-weight: bold;
+}
 
 .category-chart {
-  padding: 22px 0;
-  border-bottom: 1px solid var(--rule);
+  border: 1px solid #ddd;
+  padding: 16px;
+  margin-bottom: 24px;
+  background: #fff;
 }
 
 .category-chart h2 {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin-bottom: 14px;
+  font-size: 16px;
+  margin-bottom: 12px;
 }
-
-.category-chart p {
-  font-size: 14px;
-  color: var(--ink-soft);
-}
-
-/* ---------- add transaction form ---------- */
 
 .add-transaction {
-  padding: 22px 0;
-  border-bottom: 1px solid var(--rule);
+  border: 1px solid #ddd;
+  padding: 16px;
+  margin-bottom: 24px;
+  background: #fff;
 }
 
 .add-transaction h2 {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin-bottom: 16px;
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.field label,
-.field--type legend {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
-
-.field--type {
-  border: none;
-  padding: 0;
-}
-
-.field--type legend {
-  padding: 0;
-  margin-bottom: 5px;
+  font-size: 16px;
+  margin-bottom: 12px;
 }
 
 form {
   display: flex;
+  gap: 8px;
   flex-wrap: wrap;
-  gap: 16px 20px;
-  align-items: flex-end;
-}
-
-.field--description {
-  flex: 2 1 200px;
-}
-
-.field--amount {
-  flex: 1 1 100px;
-}
-
-.field--category {
-  flex: 1 1 140px;
 }
 
 form input,
 form select {
-  padding: 6px 2px;
-  border: none;
-  border-bottom: 1px solid var(--rule-strong);
-  background: transparent;
+  padding: 8px;
+  border: 1px solid #ccc;
   font-size: 14px;
 }
 
-form input::placeholder {
-  color: var(--ink-faint);
+form input[type="text"] {
+  flex: 2;
 }
 
-form input:focus-visible,
-form select:focus-visible {
-  outline: none;
-  border-bottom-color: var(--stamp-blue);
-  box-shadow: 0 1px 0 0 var(--stamp-blue);
+form input[type="number"] {
+  flex: 1;
 }
 
 form select {
-  appearance: none;
-  -webkit-appearance: none;
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23756f64'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 2px center;
-  padding-right: 16px;
+  flex: 1;
 }
 
-.type-toggle {
-  display: flex;
-  gap: 8px;
-}
-
-.type-toggle button {
-  padding: 6px 14px;
-  border: 1px solid var(--rule-strong);
-  background: transparent;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-}
-
-.type-toggle button[aria-pressed="true"].is-income {
-  background: var(--income);
-  border-color: var(--income);
-  color: var(--paper);
-}
-
-.type-toggle button[aria-pressed="true"].is-expense {
-  background: var(--expense);
-  border-color: var(--expense);
-  color: var(--paper);
-}
-
-.field--submit {
-  margin-left: auto;
-}
-
-form button[type="submit"] {
-  padding: 9px 22px;
-  background: var(--stamp-blue);
-  color: var(--paper);
+form button {
+  padding: 8px 20px;
+  background: #333;
+  color: #fff;
   border: none;
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  transition: transform 0.15s ease;
+  cursor: pointer;
+  font-size: 14px;
 }
-
-form button[type="submit"]:hover {
-  transform: rotate(-1deg) scale(1.03);
-}
-
-/* ---------- transactions ---------- */
 
 .transactions {
-  padding: 22px 0 30px;
+  margin-bottom: 24px;
 }
 
 .transactions h2 {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin-bottom: 14px;
+  font-size: 16px;
+  margin-bottom: 12px;
 }
 
 .filters {
   display: flex;
-  gap: 20px;
-  margin-bottom: 16px;
-}
-
-.filters .field label {
-  font-size: 10px;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
 .filters select {
-  padding: 5px 18px 5px 2px;
-  border: none;
-  border-bottom: 1px solid var(--rule-strong);
-  background-color: transparent;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  appearance: none;
-  -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23756f64'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 2px center;
-}
-
-.filters select:focus-visible {
-  outline: none;
-  border-bottom-color: var(--stamp-blue);
-  box-shadow: 0 1px 0 0 var(--stamp-blue);
-}
-
-.table-scroll {
-  overflow-x: auto;
+  padding: 6px;
+  border: 1px solid #ccc;
+  font-size: 13px;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 480px;
 }
 
-th,
-td {
-  padding: 10px 8px;
+thead {
+  background: #f5f5f5;
+}
+
+th, td {
+  padding: 10px;
   text-align: left;
-  border-bottom: 1px solid var(--rule);
-  font-size: 13px;
-}
-
-td:first-child,
-th:first-child {
-  padding-left: 0;
-}
-
-td:last-child,
-th:last-child {
-  padding-right: 0;
-  text-align: right;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
 }
 
 th {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--ink-faint);
-  letter-spacing: 0.1em;
+  font-size: 12px;
+  color: #888;
   text-transform: uppercase;
-}
-
-td.category {
-  color: var(--ink-soft);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-}
-
-td.category::before {
-  content: "[";
-}
-
-td.category::after {
-  content: "]";
-}
-
-td.income-amount,
-td.expense-amount {
-  text-align: right;
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-}
-
-td:last-child {
-  white-space: nowrap;
 }
 
 .delete-btn {
-  padding: 3px 10px;
-  background: transparent;
-  border: 1px solid var(--expense);
-  color: var(--expense);
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  transform: rotate(-6deg);
-  transition: transform 0.15s ease, background-color 0.15s ease, color 0.15s ease;
-}
-
-.delete-btn:hover,
-.delete-btn:focus-visible {
-  transform: rotate(0deg);
-  background: var(--expense);
-  color: var(--paper);
-}
-
-/* ---------- footer ---------- */
-
-.receipt__footer {
-  padding: 18px 0 26px;
-  text-align: center;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-style: italic;
-  color: var(--ink-faint);
-  letter-spacing: 0.04em;
-}
-
-/* ---------- responsive ---------- */
-
-@media (max-width: 520px) {
-  .counter {
-    padding: 28px 10px;
-  }
-
-  .receipt__body {
-    padding: 4px 18px 4px;
-  }
-
-  .field--submit {
-    margin-left: 0;
-    flex-basis: 100%;
-  }
-
-  form button[type="submit"] {
-    width: 100%;
-  }
+  padding: 4px 10px;
+  background: #eee;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  font-size: 12px;
+  color: #333;
 }

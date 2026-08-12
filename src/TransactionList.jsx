@@ -22,53 +22,45 @@ function TransactionList({ transactions, categories, onDeleteTransaction }) {
     <div className="transactions">
       <h2>Transactions</h2>
       <div className="filters">
-        <div className="field">
-          <label htmlFor="filter-type">Filter by type</label>
-          <select id="filter-type" value={filterType} onChange={(e) => setFilterType(e.target.value)}>
-            <option value="all">All Types</option>
-            <option value="income">Income</option>
-            <option value="expense">Expense</option>
-          </select>
-        </div>
-        <div className="field">
-          <label htmlFor="filter-category">Filter by category</label>
-          <select id="filter-category" value={filterCategory} onChange={(e) => setFilterCategory(e.target.value)}>
-            <option value="all">All Categories</option>
-            {categories.map(cat => (
-              <option key={cat} value={cat}>{cat}</option>
-            ))}
-          </select>
-        </div>
+        <select value={filterType} onChange={(e) => setFilterType(e.target.value)}>
+          <option value="all">All Types</option>
+          <option value="income">Income</option>
+          <option value="expense">Expense</option>
+        </select>
+        <select value={filterCategory} onChange={(e) => setFilterCategory(e.target.value)}>
+          <option value="all">All Categories</option>
+          {categories.map(cat => (
+            <option key={cat} value={cat}>{cat}</option>
+          ))}
+        </select>
       </div>
 
-      <div className="table-scroll">
-        <table>
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Description</th>
-              <th>Category</th>
-              <th>Amount</th>
-              <th>Action</th>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Amount</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredTransactions.map(t => (
+            <tr key={t.id}>
+              <td>{t.date}</td>
+              <td>{t.description}</td>
+              <td>{t.category}</td>
+              <td className={t.type === "income" ? "income-amount" : "expense-amount"}>
+                {t.type === "income" ? "+" : "-"}${t.amount}
+              </td>
+              <td>
+                <button className="delete-btn" onClick={() => handleDelete(t)}>Delete</button>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {filteredTransactions.map(t => (
-              <tr key={t.id}>
-                <td>{t.date}</td>
-                <td>{t.description}</td>
-                <td className="category">{t.category}</td>
-                <td className={t.type === "income" ? "income-amount" : "expense-amount"}>
-                  {t.type === "income" ? "+" : "-"}${t.amount}
-                </td>
-                <td>
-                  <button className="delete-btn" onClick={() => handleDelete(t)} title={`Delete "${t.description}"`}>Void</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
