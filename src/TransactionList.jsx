@@ -19,48 +19,67 @@ function TransactionList({ transactions, categories, onDeleteTransaction }) {
   };
 
   return (
-    <div className="transactions">
-      <h2>Transactions</h2>
+    <div className="panel transactions">
+      <h2 className="prompt-line"><span className="prompt-glyph">&gt;</span> transactions.log</h2>
       <div className="filters">
-        <select value={filterType} onChange={(e) => setFilterType(e.target.value)}>
-          <option value="all">All Types</option>
-          <option value="income">Income</option>
-          <option value="expense">Expense</option>
-        </select>
-        <select value={filterCategory} onChange={(e) => setFilterCategory(e.target.value)}>
-          <option value="all">All Categories</option>
-          {categories.map(cat => (
-            <option key={cat} value={cat}>{cat}</option>
-          ))}
-        </select>
+        <label className="field">
+          <span className="field-label">Type</span>
+          <select value={filterType} onChange={(e) => setFilterType(e.target.value)}>
+            <option value="all">All types</option>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+        </label>
+        <label className="field">
+          <span className="field-label">Category</span>
+          <select value={filterCategory} onChange={(e) => setFilterCategory(e.target.value)}>
+            <option value="all">All categories</option>
+            {categories.map(cat => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </select>
+        </label>
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Amount</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredTransactions.map(t => (
-            <tr key={t.id}>
-              <td>{t.date}</td>
-              <td>{t.description}</td>
-              <td>{t.category}</td>
-              <td className={t.type === "income" ? "income-amount" : "expense-amount"}>
-                {t.type === "income" ? "+" : "-"}${t.amount}
-              </td>
-              <td>
-                <button className="delete-btn" onClick={() => handleDelete(t)}>Delete</button>
-              </td>
+      <div className="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Description</th>
+              <th>Category</th>
+              <th></th>
+              <th className="col-amount">Amount</th>
+              <th className="col-action"></th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filteredTransactions.length === 0 && (
+              <tr>
+                <td colSpan={6} className="empty-row">No entries match this filter.</td>
+              </tr>
+            )}
+            {filteredTransactions.map(t => (
+              <tr key={t.id}>
+                <td className="col-date">{t.date}</td>
+                <td>{t.description}</td>
+                <td className="col-category">{t.category}</td>
+                <td>
+                  <span className={t.type === "income" ? "tag tag-in" : "tag tag-out"}>
+                    {t.type === "income" ? "IN" : "OUT"}
+                  </span>
+                </td>
+                <td className={t.type === "income" ? "income-amount col-amount" : "expense-amount col-amount"}>
+                  {t.type === "income" ? "+" : "-"}${t.amount.toFixed(2)}
+                </td>
+                <td className="col-action">
+                  <button className="delete-btn" onClick={() => handleDelete(t)}>[ x ]</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

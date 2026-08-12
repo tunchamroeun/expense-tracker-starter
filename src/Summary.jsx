@@ -11,17 +11,19 @@ function Summary({ transactions }) {
 
   return (
     <div className="summary">
-      <div className="summary-card">
+      <div className="summary-register">
         <h3>Income</h3>
-        <p className="income-amount">${totalIncome}</p>
+        <p className="income-amount">${totalIncome.toFixed(2)}</p>
       </div>
-      <div className="summary-card">
-        <h3>Expenses</h3>
-        <p className="expense-amount">${totalExpenses}</p>
+      <div className="summary-register">
+        <h3>Expense</h3>
+        <p className="expense-amount">${totalExpenses.toFixed(2)}</p>
       </div>
-      <div className="summary-card">
+      <div className="summary-register">
         <h3>Balance</h3>
-        <p className="balance-amount">${balance}</p>
+        <p className={balance < 0 ? "expense-amount" : "balance-amount"}>
+          {balance < 0 ? "-" : ""}${Math.abs(balance).toFixed(2)}
+        </p>
       </div>
     </div>
   );

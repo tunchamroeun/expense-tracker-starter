@@ -31,18 +31,45 @@ function App() {
     setTransactions(transactions.filter(t => t.id !== id));
   };
 
+  const tickerItems = [...transactions].reverse().slice(0, 12);
+
   return (
     <div className="app">
-      <h1>Finance Tracker</h1>
-      <p className="subtitle">Track your income and expenses</p>
+      {tickerItems.length > 0 && (
+        <div className="ticker" aria-hidden="true">
+          <div className="ticker-track">
+            {[...tickerItems, ...tickerItems].map((t, i) => (
+              <span className="ticker-item" key={`${t.id}-${i}`}>
+                <span className={t.type === "income" ? "ticker-in" : "ticker-out"}>
+                  {t.type === "income" ? "IN" : "OUT"}
+                </span>
+                {t.description.toUpperCase()}
+                <span className={t.type === "income" ? "ticker-in" : "ticker-out"}>
+                  {t.type === "income" ? "+" : "-"}${t.amount}
+                </span>
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
 
-      <Summary transactions={transactions} />
+      <div className="app-body">
+        <header className="app-header">
+          <p className="terminal-path">~/finance</p>
+          <h1 className="prompt-line">
+            <span className="prompt-glyph">&gt;</span> FINANCE_TRACKER.SYS
+          </h1>
+          <p className="subtitle">// track your income and expenses</p>
+        </header>
 
-      <SpendingByCategoryChart transactions={transactions} />
+        <Summary transactions={transactions} />
 
-      <TransactionForm categories={categories} onAddTransaction={handleAddTransaction} />
+        <SpendingByCategoryChart transactions={transactions} />
 
-      <TransactionList transactions={transactions} categories={categories} onDeleteTransaction={handleDeleteTransaction} />
+        <TransactionForm categories={categories} onAddTransaction={handleAddTransaction} />
+
+        <TransactionList transactions={transactions} categories={categories} onDeleteTransaction={handleDeleteTransaction} />
+      </div>
     </div>
   );
 }

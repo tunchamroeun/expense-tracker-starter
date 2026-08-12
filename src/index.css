@@ -4,8 +4,52 @@
   box-sizing: border-box;
 }
 
+:root {
+  --bg: #0b0f0d;
+  --bg-panel: #121714;
+  --bg-panel-raised: #171d19;
+  --border: #26302b;
+  --border-strong: #3a463f;
+
+  --amber: #f5a623;
+  --amber-dim: #8a6318;
+  --amber-glow: rgba(245, 166, 35, 0.45);
+
+  --cyan: #5fd3c4;
+  --red: #e2543d;
+
+  --text: #e7e2d6;
+  --text-dim: #8b958e;
+  --text-faint: #5b655f;
+
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo,
+    Consolas, monospace;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background-color: #ffffff;
-  color: #333;
+  font-family: var(--font-mono);
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* subtle CRT scanline texture, decorative only */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.025) 0px,
+    rgba(255, 255, 255, 0.025) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
 }
