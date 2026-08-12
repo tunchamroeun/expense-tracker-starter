@@ -11,17 +11,20 @@ function Summary({ transactions }) {
 
   return (
     <div className="summary">
-      <div className="summary-card">
-        <h3>Income</h3>
-        <p className="income-amount">${totalIncome}</p>
+      <div className="summary-line">
+        <span className="summary-line__label">Income</span>
+        <span className="summary-line__fill" aria-hidden="true" />
+        <span className="summary-line__value income-amount">${totalIncome}</span>
       </div>
-      <div className="summary-card">
-        <h3>Expenses</h3>
-        <p className="expense-amount">${totalExpenses}</p>
+      <div className="summary-line">
+        <span className="summary-line__label">Expenses</span>
+        <span className="summary-line__fill" aria-hidden="true" />
+        <span className="summary-line__value expense-amount">${totalExpenses}</span>
       </div>
-      <div className="summary-card">
-        <h3>Balance</h3>
-        <p className="balance-amount">${balance}</p>
+      <div className="summary-line summary-line--total">
+        <span className="summary-line__label">Balance</span>
+        <span className="summary-line__fill" aria-hidden="true" />
+        <span className="summary-line__value">${balance}</span>
       </div>
     </div>
   );

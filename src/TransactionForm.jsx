@@ -21,28 +21,62 @@ function TransactionForm({ categories, onAddTransaction }) {
     <div className="add-transaction">
       <h2>Add Transaction</h2>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="Amount"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-        />
-        <select value={type} onChange={(e) => setType(e.target.value)}>
-          <option value="income">Income</option>
-          <option value="expense">Expense</option>
-        </select>
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
-          {categories.map(cat => (
-            <option key={cat} value={cat}>{cat}</option>
-          ))}
-        </select>
-        <button type="submit">Add</button>
+        <div className="field field--description">
+          <label htmlFor="tx-description">Description</label>
+          <input
+            id="tx-description"
+            type="text"
+            placeholder="e.g. Groceries"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+
+        <div className="field field--amount">
+          <label htmlFor="tx-amount">Amount</label>
+          <input
+            id="tx-amount"
+            type="number"
+            placeholder="0.00"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+          />
+        </div>
+
+        <fieldset className="field field--type">
+          <legend>Type</legend>
+          <div className="type-toggle">
+            <button
+              type="button"
+              className="is-income"
+              aria-pressed={type === 'income'}
+              onClick={() => setType('income')}
+            >
+              Income
+            </button>
+            <button
+              type="button"
+              className="is-expense"
+              aria-pressed={type === 'expense'}
+              onClick={() => setType('expense')}
+            >
+              Expense
+            </button>
+          </div>
+        </fieldset>
+
+        <div className="field field--category">
+          <label htmlFor="tx-category">Category</label>
+          <select id="tx-category" value={category} onChange={(e) => setCategory(e.target.value)}>
+            {categories.map(cat => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="field field--submit">
+          <button type="submit">Record transaction</button>
+        </div>
       </form>
     </div>
   );

@@ -31,18 +31,37 @@ function App() {
     setTransactions(transactions.filter(t => t.id !== id));
   };
 
+  const today = new Date().toISOString().split('T')[0];
+  const receiptNumber = String(transactions.length).padStart(4, '0');
+
   return (
-    <div className="app">
-      <h1>Finance Tracker</h1>
-      <p className="subtitle">Track your income and expenses</p>
+    <div className="counter">
+      <div className="receipt">
+        <div className="receipt__edge receipt__edge--top" aria-hidden="true" />
+        <div className="receipt__body">
+          <header className="receipt__header">
+            <h1>Finance Tracker</h1>
+            <p className="subtitle">Track your income and expenses</p>
+            <div className="receipt__meta">
+              <span>No. {receiptNumber}</span>
+              <span>{today}</span>
+            </div>
+          </header>
 
-      <Summary transactions={transactions} />
+          <Summary transactions={transactions} />
 
-      <SpendingByCategoryChart transactions={transactions} />
+          <SpendingByCategoryChart transactions={transactions} />
 
-      <TransactionForm categories={categories} onAddTransaction={handleAddTransaction} />
+          <TransactionForm categories={categories} onAddTransaction={handleAddTransaction} />
 
-      <TransactionList transactions={transactions} categories={categories} onDeleteTransaction={handleDeleteTransaction} />
+          <TransactionList transactions={transactions} categories={categories} onDeleteTransaction={handleDeleteTransaction} />
+
+          <footer className="receipt__footer">
+            <p>— end of statement —</p>
+          </footer>
+        </div>
+        <div className="receipt__edge receipt__edge--bottom" aria-hidden="true" />
+      </div>
     </div>
   );
 }

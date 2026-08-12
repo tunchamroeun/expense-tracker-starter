@@ -18,13 +18,26 @@ function SpendingByCategoryChart({ transactions }) {
       {chartData.length === 0 ? (
         <p>No expenses recorded yet.</p>
       ) : (
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-            <CartesianGrid vertical={false} stroke="#e1e0d9" />
-            <XAxis dataKey="category" tickLine={false} axisLine={{ stroke: "#c3c2b7" }} tick={{ fill: "#52514e", fontSize: 12 }} />
-            <YAxis tickLine={false} axisLine={false} tick={{ fill: "#52514e", fontSize: 12 }} />
-            <Tooltip formatter={(value) => [`$${value}`, "Spent"]} />
-            <Bar dataKey="amount" fill="#2a78d6" radius={[4, 4, 0, 0]} />
+        <ResponsiveContainer width="100%" height={260}>
+          <BarChart data={chartData} margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
+            <CartesianGrid vertical={false} stroke="#d9d5c7" strokeDasharray="3 3" />
+            <XAxis
+              dataKey="category"
+              tickLine={false}
+              axisLine={{ stroke: "#b9b3a0" }}
+              tick={{ fill: "#756f64", fontSize: 11, fontFamily: "var(--font-mono)", textTransform: "uppercase" }}
+            />
+            <YAxis
+              tickLine={false}
+              axisLine={false}
+              tick={{ fill: "#756f64", fontSize: 11, fontFamily: "var(--font-mono)" }}
+            />
+            <Tooltip
+              formatter={(value) => [`$${value}`, "Spent"]}
+              contentStyle={{ background: "#f3f2ec", border: "1px solid #221f1c", borderRadius: 0, fontFamily: "var(--font-mono)", fontSize: 12 }}
+              cursor={{ fill: "rgba(44, 79, 128, 0.08)" }}
+            />
+            <Bar dataKey="amount" fill="#2c4f80" radius={[0, 0, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       )}
