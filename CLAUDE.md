@@ -20,12 +20,15 @@ This is the starter project for a Claude Code course (see `README.md`). It is de
 
 `src/main.jsx` only mounts `App` in `StrictMode`. There is no router, no API layer, and no persistence — transactions are a hardcoded seed array held in `useState`, so a page refresh discards anything added.
 
-The app is split into four components, all in `src/`:
+The app is split into five components, all in `src/`:
 
-- **`App.jsx`** — owns the `transactions` state (seed array) and the `categories` array. Renders `Summary`, `TransactionForm`, and `TransactionList`, passing `transactions`/`categories` down as props. `handleAddTransaction` appends a new transaction (stamping `id` via `Date.now()` and today's `date`) and is passed to `TransactionForm` as `onAddTransaction`.
+- **`App.jsx`** — owns the `transactions` state (seed array) and the `categories` array. Renders a scrolling ticker of recent transactions, `Summary`, `SpendingByCategoryChart`, `TransactionForm`, and `TransactionList`, passing `transactions`/`categories` down as props. `handleAddTransaction` appends a new transaction (stamping `id` via `Date.now()` and today's `date`) and is passed to `TransactionForm` as `onAddTransaction`. `handleDeleteTransaction` removes a transaction by `id` and is passed to `TransactionList` as `onDeleteTransaction`.
 - **`Summary.jsx`** — takes `transactions` as a prop and derives `totalIncome`, `totalExpenses`, and `balance` from it internally via `.filter().reduce()`.
+- **`SpendingByCategoryChart.jsx`** — takes `transactions` as a prop, sums expense amounts per category, and renders a `recharts` bar chart.
 - **`TransactionForm.jsx`** — owns its own form field state (description, amount, type, category). On submit, calls `onAddTransaction` with `{ description, amount, type, category }` (`amount` converted to a number) and resets its fields. Takes `categories` as a prop for the category `<select>`.
-- **`TransactionList.jsx`** — owns `filterType`/`filterCategory` state and derives `filteredTransactions` by chaining `.filter()` over them. Takes `transactions` and `categories` as props.
+- **`TransactionList.jsx`** — owns `filterType`/`filterCategory` state and derives `filteredTransactions` by chaining `.filter()` over them. Takes `transactions`, `categories`, and `onDeleteTransaction` as props; each row has a delete button that confirms via `window.confirm` before calling `onDeleteTransaction`.
+
+`src/format.js` holds shared formatting helpers (`isIncome`, `formatAmount`, `transactionSign`, `transactionTag`) used by `App.jsx`, `Summary.jsx`, `TransactionList.jsx`, and `SpendingByCategoryChart.jsx` to keep amount/sign display consistent.
 
 The `categories` array in `App.jsx` is the single source for both the add form's category dropdown and the filter dropdown — add a category there and both update.
 

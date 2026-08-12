@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { isIncome, formatAmount, transactionSign, transactionTag } from './format'
 
 function TransactionList({ transactions, categories, onDeleteTransaction }) {
   const [filterType, setFilterType] = useState("all");
@@ -65,12 +66,12 @@ function TransactionList({ transactions, categories, onDeleteTransaction }) {
                 <td>{t.description}</td>
                 <td className="col-category">{t.category}</td>
                 <td>
-                  <span className={t.type === "income" ? "tag tag-in" : "tag tag-out"}>
-                    {t.type === "income" ? "IN" : "OUT"}
+                  <span className={isIncome(t.type) ? "tag tag-in" : "tag tag-out"}>
+                    {transactionTag(t.type)}
                   </span>
                 </td>
-                <td className={t.type === "income" ? "income-amount col-amount" : "expense-amount col-amount"}>
-                  {t.type === "income" ? "+" : "-"}${t.amount.toFixed(2)}
+                <td className={isIncome(t.type) ? "income-amount col-amount" : "expense-amount col-amount"}>
+                  {transactionSign(t.type)}${formatAmount(t.amount)}
                 </td>
                 <td className="col-action">
                   <button className="delete-btn" onClick={() => handleDelete(t)}>[ x ]</button>

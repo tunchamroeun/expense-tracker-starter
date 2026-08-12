@@ -4,6 +4,7 @@ import Summary from './Summary'
 import SpendingByCategoryChart from './SpendingByCategoryChart'
 import TransactionForm from './TransactionForm'
 import TransactionList from './TransactionList'
+import { isIncome, formatAmount, transactionSign, transactionTag } from './format'
 
 function App() {
   const [transactions, setTransactions] = useState([
@@ -40,12 +41,12 @@ function App() {
           <div className="ticker-track">
             {[...tickerItems, ...tickerItems].map((t, i) => (
               <span className="ticker-item" key={`${t.id}-${i}`}>
-                <span className={t.type === "income" ? "ticker-in" : "ticker-out"}>
-                  {t.type === "income" ? "IN" : "OUT"}
+                <span className={isIncome(t.type) ? "ticker-in" : "ticker-out"}>
+                  {transactionTag(t.type)}
                 </span>
                 {t.description.toUpperCase()}
-                <span className={t.type === "income" ? "ticker-in" : "ticker-out"}>
-                  {t.type === "income" ? "+" : "-"}${t.amount}
+                <span className={isIncome(t.type) ? "ticker-in" : "ticker-out"}>
+                  {transactionSign(t.type)}${formatAmount(t.amount)}
                 </span>
               </span>
             ))}

@@ -1,4 +1,5 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
+import { formatAmount } from './format'
 
 function SpendingByCategoryChart({ transactions }) {
   const spendingByCategory = transactions
@@ -40,7 +41,7 @@ function SpendingByCategoryChart({ transactions }) {
             />
             <Tooltip
               cursor={{ fill: "rgba(245, 166, 35, 0.08)" }}
-              formatter={(value) => [`$${value}`, "Spent"]}
+              formatter={(value) => [`$${formatAmount(value)}`, "Spent"]}
               contentStyle={{
                 background: "#171d19",
                 border: "1px solid #3a463f",
