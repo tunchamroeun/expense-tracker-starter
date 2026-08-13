@@ -58,9 +58,9 @@ function App() {
         <header className="app-header">
           <p className="terminal-path">~/finance</p>
           <h1 className="prompt-line">
-            <span className="prompt-glyph">&gt;</span> FINANCE_TRACKER.SYS
+            <span className="prompt-glyph">&gt;</span> កម្មវិធីតាមដានហិរញ្ញវត្ថុ
           </h1>
-          <p className="subtitle">// track your income and expenses</p>
+          <p className="subtitle">// តាមដានចំណូល និងចំណាយរបស់អ្នក</p>
         </header>
 
         <Summary transactions={transactions} />
